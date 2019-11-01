@@ -35,7 +35,9 @@ class ReplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         
+        $reply = Reply::create($request->all());
+        return response('stored');
     }
 
     /**
