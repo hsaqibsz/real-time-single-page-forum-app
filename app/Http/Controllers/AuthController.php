@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -13,8 +14,10 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('JWT', ['except' => ['login', 'signup']]);
     }
+
+
 
     /**
      * Get a JWT via given credentials.
@@ -30,6 +33,17 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * Signup part added manually
+     */
+    public function signup (request $request)
+    {
+        
+        User::create($request->all()); // the problem is not bcrypting the password section
+        // login the registered user
+        return $this->login($request);
     }
 
     /**
@@ -76,7 +90,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'name' => auth()->user()->name
         ]);
     }
 }

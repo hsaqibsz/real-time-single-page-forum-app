@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -46,6 +47,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+          if ($Exception instanceof
+                  \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+        return response()->json(['error' => 'TOKEN_EXPIRED']);
+    }elseif ($exception instanceof JWTException){
+            return response(['error' => 'token is not provided'], Response::HTTP_BAD_REQUEST);
+        }
         return parent::render($request, $exception);
     }
 }
