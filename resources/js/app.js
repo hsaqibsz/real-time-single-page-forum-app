@@ -8,11 +8,10 @@ import vuetify from './vuetify';
 
 import User from './Helpers/User';
 window.User = User;
+ 
+
 
 import AppHome from './components/AppHome.vue';
-
-
-
 import router from './Router/router.js'
 
 
