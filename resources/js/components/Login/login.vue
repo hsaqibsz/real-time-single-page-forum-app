@@ -1,6 +1,6 @@
 
 <template>
- 
+   <v-container>
     <v-form @submit.prevent = "login" class="login-form">
          <v-text-field
          label="E-mail"
@@ -17,8 +17,13 @@
          ></v-text-field>
 
          <v-btn type="submit" color="green" >Login</v-btn>
+
+          <router-link to="/signup">
+                  <v-btn  color="blue">signup</v-btn>
+                  </router-link>
     </v-form>
- 
+   </v-container>
+   
 </template>
 
 <script>
@@ -35,6 +40,7 @@ export default {
     methods: {
         login() {
                 User.login(this.form);
+                this.$router.push({ name: 'forum' });
         }
     },
 

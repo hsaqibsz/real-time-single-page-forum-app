@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\SignupRequest;
 
 class CategoryController extends Controller
 {
@@ -12,10 +13,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+     public function __construct()
     {
-        $this->middleware('JWT', ['except' => ['index', 'show']]);
-    }
+       $this->middleware('JWT', ['except' => ['index', 'show']]);
+    } 
     
     public function index()
     {
@@ -40,6 +41,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+    
         $category = new Category;
         $category->name = $request->name;
         $category->slug = str_slug($request->slug);

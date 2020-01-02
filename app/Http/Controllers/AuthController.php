@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+
+
 
 class AuthController extends Controller
 {
@@ -15,7 +18,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('JWT', ['except' => ['login', 'signup']]);
-    }
+    } 
 
 
 
@@ -38,9 +41,9 @@ class AuthController extends Controller
     /**
      * Signup part added manually
      */
-    public function signup (request $request)
+    public function signup(Request $request)
     {
-        
+      
         User::create($request->all()); // the problem is not bcrypting the password section
         // login the registered user
         return $this->login($request);
